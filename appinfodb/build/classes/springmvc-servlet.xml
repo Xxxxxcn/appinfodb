@@ -37,7 +37,7 @@
 	</mvc:annotation-driven>
 	
 	<!-- 开启组件扫描  @Controller @Service @Resource-->
-	<context:component-scan base-package="cn.sq.appinfo.service" />
+	<context:component-scan base-package="cn.sq.appinfo" />
 	
 	
 	<!-- 配置视图解析器，把controller返回的字符串，映射到指定的jsp，prefix是配置前缀，suffix是配置后缀，如果controller返回的字符串是success，这最后的路径就是/WEB-INF/success.jsp -->
@@ -58,6 +58,22 @@
 		</property>
 	</bean>
 	
+	<mvc:resources location="/statics/" mapping="/statics/**"></mvc:resources>
+	
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/manager/**"/>
+			<mvc:mapping path="/dev/**"/>
+			<!-- 不拦截的路径 -->
+			<mvc:exclude-mapping path="/manager/login.do"/>
+			<mvc:exclude-mapping path="/dev/login.do"/>
+			<mvc:exclude-mapping path="/manager/dologin.do"/>
+			<mvc:exclude-mapping path="/dev/dologin.do"/>
+			<bean class="cn.sq.appinfo.interceptor.SessionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>	
+	
 	<!-- 配置文件上传的解析器 -->
 	<!-- id必须叫这个名字，因为Spring在这部分是根据BeanId来查找 -->
 	<bean id="multipartResolver"
@@ -65,16 +81,6 @@
 		<property name="maxUploadSize" value="50000000000" />
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
-	
-	<!-- 配置拦截器 -->
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/appinfo/**" />
-			<!-- 不拦截的路径 -->
-			<mvc:exclude-mapping path="/appinfo/login.do"/>
-			<bean class="cn.sq.appinfo.interceptor.SessionInterceptor"></bean>
-		</mvc:interceptor>
-	</mvc:interceptors>
 	
 	<import resource="applicationContext-mybatis.xml" />
 

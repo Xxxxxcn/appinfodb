@@ -1,10 +1,10 @@
 package cn.sq.appinfo.dao;
 
-import javax.validation.constraints.Past;
+import org.apache.ibatis.annotations.Param;
 
 import cn.sq.appinfo.pojo.DevUser;
 
 public interface DevUserDao {	
 	
-	DevUser getDevUserNameAanPwd(@Past String devName,@Past String devPassword);
+	DevUser getDevUserNameAanPwd(@Param("devCode") String devCode,@Param("devPassword") String devPassword);
 }

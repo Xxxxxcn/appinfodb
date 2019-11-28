@@ -4,7 +4,7 @@
 <div class="page-title">
 	<div class="title_left">
 		<h3>
-			欢迎你：${devUserSession.devName }<strong> | 角色：开发者账户</strong>
+			欢迎你：${devUserSession.devName }<strong> | 角色：开发者账户 </strong>
 		</h3>
 	</div>
 </div>

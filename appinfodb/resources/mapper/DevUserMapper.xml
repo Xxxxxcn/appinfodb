@@ -4,6 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.sq.appinfo.dao.DevUserDao">
 	<select id="getDevUserNameAanPwd" resultType="DevUser">
-		select * from DevUser where devName=#{devName} and devPassword=#{devPassword}
+		SELECT * FROM dev_user WHERE devCode=#{devCode} AND devPassword=#{devPassword}
 	</select>
 </mapper>

@@ -11,10 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.sq.appinfo.dao.BackendUserDao;
 import cn.sq.appinfo.pojo.BackendUser;
 import cn.sq.appinfo.service.BackendUserService;
+import cn.sq.appinfo.tools.Constants;
 
 @Controller
 @RequestMapping("/manager")
-public class managerContorller {
+public class BackendContorller {
 	
 	@Resource
 	private BackendUserService us;
@@ -27,14 +28,21 @@ public class managerContorller {
 	@RequestMapping("/dologin") 
 	public ModelAndView login(String userCode,String userPassword,HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		if(us.login(userCode,userPassword)!=null) {
-			session.setAttribute("session_name", userCode);
-			mv.setViewName("");
+		BackendUser backendUser =us.login(userCode,userPassword);
+		if(backendUser!=null) {
+			session.setAttribute(Constants.USER_SESSION, backendUser);
+			mv.setViewName("/backend/main");
 			return mv;
 		}else {
-			session.setAttribute("error", "登入失败");
+			mv.addObject("error", "登入失败,请从新输入！");
 			mv.setViewName("backendlogin");
 			return mv;
 		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute(Constants.USER_SESSION);
+		return "backendlogin";
 	}
 }
