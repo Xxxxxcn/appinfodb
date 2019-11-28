@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	
+	
+	<!-- 开启注解驱动,为了支持 @RequestMapping -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<!-- 字符串格式的消息转换器，用于设置响应结果的字符集编码，处理AJAX乱码问题 -->
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=utf-8</value>
+						<value>application/json;charset=utf-8</value>
+					</list>
+				</property>
+			</bean>
+			<!-- FastJSON自带的对象json转换的消息转换器，用于将对象转换为json格式的字符串返回给客户端 -->
+			<bean
+				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=utf-8</value>
+						<value>application/json;charset=utf-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 开启组件扫描  @Controller @Service @Resource-->
+	<context:component-scan base-package="cn.sq.appinfo.service" />
+	
+	
+	<!-- 配置视图解析器，把controller返回的字符串，映射到指定的jsp，prefix是配置前缀，suffix是配置后缀，如果controller返回的字符串是success，这最后的路径就是/WEB-INF/success.jsp -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 全局异常处理 -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 指定异常类型对应的显示页面 -->
+				<prop key="java.lang.NullPointerException">err</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 配置文件上传的解析器 -->
+	<!-- id必须叫这个名字，因为Spring在这部分是根据BeanId来查找 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="50000000000" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/appinfo/**" />
+			<!-- 不拦截的路径 -->
+			<mvc:exclude-mapping path="/appinfo/login.do"/>
+			<bean class="cn.sq.appinfo.interceptor.SessionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<import resource="applicationContext-mybatis.xml" />
+
+</beans>
