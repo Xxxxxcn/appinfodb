@@ -31,4 +31,14 @@ public class AppinfoServiceimpl implements AppinfoService {
 		return appinfoDao.getAppInfoCount(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2,queryCategoryLevel3, queryFlatformId, devId);
 	}
 
+	@Override
+	public Integer AddAppInfo(AppInfo appInfo) {
+		return appinfoDao.InsertAppInfo(appInfo);
+	}
+
+	@Override
+	public AppInfo getAppinfoIdandAPKName(Integer id, String APKName) {
+		return appinfoDao.getAppinfoIdandAPKName(id, APKName);
+	}
+
 }

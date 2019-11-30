@@ -27,4 +27,8 @@ public interface AppinfoDao {
 							   @Param("categoryLevel3")Integer queryCategoryLevel3,
 							   @Param("flatformId")Integer queryFlatformId,
 							   @Param("devId")Integer devId);
+	
+	public Integer InsertAppInfo(AppInfo appInfo);
+	
+	public AppInfo getAppinfoIdandAPKName(@Param("id")Integer id,@Param("APKName") String APKName);
 }
