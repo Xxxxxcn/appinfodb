@@ -23,4 +23,6 @@ public interface AppinfoService {
 	public Integer AddAppInfo(AppInfo appInfo);
 	
 	public AppInfo getAppinfoIdandAPKName(Integer id,String APKName);
+	
+	public boolean updateStatus(Integer id,Integer status);
 }

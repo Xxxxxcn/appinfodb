@@ -41,4 +41,9 @@ public class AppinfoServiceimpl implements AppinfoService {
 		return appinfoDao.getAppinfoIdandAPKName(id, APKName);
 	}
 
+	@Override
+	public boolean updateStatus(Integer id, Integer status) {
+		return appinfoDao.updateAppinfoStatu(id, status) > 0;
+	}
+
 }

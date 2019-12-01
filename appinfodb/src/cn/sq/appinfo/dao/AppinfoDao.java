@@ -31,4 +31,6 @@ public interface AppinfoDao {
 	public Integer InsertAppInfo(AppInfo appInfo);
 	
 	public AppInfo getAppinfoIdandAPKName(@Param("id")Integer id,@Param("APKName") String APKName);
+	
+	public Integer updateAppinfoStatu(@Param("id")Integer id,@Param("status")Integer status);
 }

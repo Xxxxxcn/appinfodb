@@ -95,4 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					   #{categoryLevel1},#{categoryLevel2},#{categoryLevel3},#{downloads},
 					   #{flatformId},#{logoPicPath},#{logoLocPath},#{createdBy},#{creationDate})
 	</insert>
+	
+	<update id="updateAppinfoStatu">
+		update app_info set status=#{status} where id=#{id}
+	</update>
 </mapper>
