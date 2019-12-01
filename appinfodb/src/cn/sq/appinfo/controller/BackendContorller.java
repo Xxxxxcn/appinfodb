@@ -124,7 +124,7 @@ public class BackendContorller {
 
 	@RequestMapping("checksave")
 	public String checkSave(Integer status,Integer id) {
-		if (apps.updateStatus(status,id)) {
+		if (apps.updateStatus(id,status)) {
 			return "redirect:/manager/list.do";
 		}
 		return "backend/appcheck";
