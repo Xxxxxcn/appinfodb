@@ -33,4 +33,13 @@ public interface AppinfoDao {
 	public AppInfo getAppinfoIdandAPKName(@Param("id")Integer id,@Param("APKName") String APKName);
 	
 	public Integer updateAppinfoStatu(@Param("id")Integer id,@Param("status")Integer status);
+	
+	public Integer DeleteAppinfoById(@Param("id") Integer id);
+	
+	public Integer UpdateAppinfo(AppInfo appInfo);
+	
+	public Integer DeleteLogo(Integer id);
+	
+	public Integer updateVersionId(@Param("versionId") Integer verid,@Param("id") Integer appId);	
+	
 }

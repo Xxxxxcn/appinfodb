@@ -238,7 +238,7 @@
 										tabindex="0">上一页</a>
 									</li>
 								</c:if>
-								<c:if test="${pages.pageInex < pages.totalCount }">
+								<c:if test="${pages.pageInex < pages.pageTotal }">
 									<li class="paginate_button "><a
 										href="javascript:page_nav(document.forms[0],${pages.pageInex+1 });"
 										aria-controls="datatable-responsive" data-dt-idx="1"

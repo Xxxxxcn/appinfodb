@@ -60,8 +60,9 @@ $("#queryCategoryLevel2").change(function(){
 
 $(".addVersion").on("click",function(){
 	var obj = $(this);
-	window.location.href="appversionadd?id="+obj.attr("appinfoid");
+	window.location.href="appversionadd.do?id="+obj.attr("appinfoid");
 });
+
 $(".modifyVersion").on("click",function(){
 	var obj = $(this);
 	var status = obj.attr("status");
@@ -71,17 +72,18 @@ $(".modifyVersion").on("click",function(){
 		if(versionid == null || versionid == ""){
 			alert("该APP应用无版本信息，请先增加版本信息！");
 		}else{
-			window.location.href="appversionmodify?vid="+ versionid + "&aid="+ appinfoid;
+			window.location.href="appversionmodify.do?vid="+ versionid + "&aid="+ appinfoid;
 		}
 	}else{
 		alert("该APP应用的状态为：【"+obj.attr("statusname")+"】,不能修改其版本信息，只可进行【新增版本】操作！");
 	}
 });
+
 $(".modifyAppInfo").on("click",function(){
 	var obj = $(this);
 	var status = obj.attr("status");
 	if(status == "1" || status == "3"){//待审核、审核未通过状态下才可以进行修改操作
-		window.location.href="appinfomodify?id="+ obj.attr("appinfoid");
+		window.location.href="appinfomodify.do?id="+ obj.attr("appinfoid");
 	}else{
 		alert("该APP应用的状态为：【"+obj.attr("statusname")+"】,不能修改！");
 	}
@@ -103,7 +105,7 @@ $(document).on("click",".saleSwichOpen,.saleSwichClose",function(){
 var saleSwitchAjax = function(appId,obj){
 	$.ajax({
 		type:"PUT",
-		url:appId+"/sale.json",
+		url:appId+"/sale.do",
 		dataType:"json",
 		success:function(data){
 			/*
@@ -172,7 +174,7 @@ var saleSwitchAjax = function(appId,obj){
 
 $(".viewApp").on("click",function(){
 	var obj = $(this);
-	window.location.href="appview/"+ obj.attr("appinfoid");
+	window.location.href="appview/"+ obj.attr("appinfoid")+".do";
 });
 
 $(".deleteApp").on("click",function(){
@@ -180,16 +182,15 @@ $(".deleteApp").on("click",function(){
 	if(confirm("你确定要删除APP应用【"+obj.attr("appsoftwarename")+"】及其所有的版本吗？")){
 		$.ajax({
 			type:"GET",
-			url:"delapp.json",
+			url:"delapp.do",
 			data:{id:obj.attr("appinfoid")},
-			dataType:"json",
 			success:function(data){
-				if(data.delResult == "true"){//删除成功：移除删除行
+				if(data == "true"){//删除成功：移除删除行
 					alert("删除成功");
 					obj.parents("tr").remove();
-				}else if(data.delResult == "false"){//删除失败
+				}else if(data == "false"){//删除失败
 					alert("对不起，删除AAP应用【"+obj.attr("appsoftwarename")+"】失败");
-				}else if(data.delResult == "notexist"){
+				}else if(data == "notexist"){
 					alert("对不起，APP应用【"+obj.attr("appsoftwarename")+"】不存在");
 				}
 			},

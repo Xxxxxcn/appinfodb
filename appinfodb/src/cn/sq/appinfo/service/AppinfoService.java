@@ -25,4 +25,12 @@ public interface AppinfoService {
 	public AppInfo getAppinfoIdandAPKName(Integer id,String APKName);
 	
 	public boolean updateStatus(Integer id,Integer status);
+	
+	public boolean DeleteAppinfoById(Integer id);
+	
+	public Integer UpdateAppinfo(AppInfo appInfo);
+	
+	public boolean UpdateAppinfoStatus(AppInfo appInfo);
+	
+	public boolean DeleteLogo(Integer id);
 }

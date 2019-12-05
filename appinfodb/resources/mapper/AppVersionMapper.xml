@@ -8,4 +8,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from app_version where id = #{id}
 	</select>
 	
+	<select id="getAppVersionappId" resultType="AppVersion">
+		SELECT * FROM app_version v
+				INNER JOIN (SELECT id,softwareName AS appName FROM app_info a) a ON v.appId = a.id 
+				INNER JOIN (SELECT valueId,valueName AS publishStatusName FROM data_dictionary WHERE typeCode ="APP_STATUS" ) d ON d.valueId=v.publishStatus
+		WHERE appId=#{appId}		
+	</select>
+	<insert id="InsertAppVersion" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO app_version VALUES(null,#{appId},#{versionNo},#{versionInfo},#{publishStatus},#{downloadLink},#{versionSize},#{createdBy},#{creationDate},#{modifyBy},#{modifyDate},#{apkLocPath},#{apkFileName});		
+	</insert>
+	
+	<update id="Deleteapk">
+		UPDATE app_version SET downloadLink=NULL,apkLocPath=NULL,apkFileName=NULL WHERE id=#{id}
+	</update>
+	
+	<update id="UpdateAppversion" parameterType="AppVersion">
+		update app_version
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="versionNo != null">versionNo=#{versionNo},</if>
+			<if test="versionInfo != null">versionInfo=#{versionInfo},</if>
+			<if test="publishStatus != null">publishStatus=#{publishStatus},</if>
+			<if test="downloadLink != null">downloadLink=#{downloadLink},</if>
+			<if test="apkLocPath != null">apkLocPath=#{apkLocPath},</if>
+			<if test="versionSize != null">versionSize=#{versionSize},</if>
+			<if test="apkFileName != null">apkFileName=#{apkFileName},</if>
+			<if test="modifyBy != null">modifyBy=#{modifyBy},</if>
+			<if test="modifyDate != null">modifyDate=#{modifyDate},</if>
+		</trim>
+	</update>
+	
+	<delete id="DeleteAppversion">
+		DELETE FROM app_version WHERE appId = #{appId}
+	</delete>
 </mapper>

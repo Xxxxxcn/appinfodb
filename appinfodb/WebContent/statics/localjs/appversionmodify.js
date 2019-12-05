@@ -1,7 +1,7 @@
 function delfile(id){
 	$.ajax({
 		type:"GET",//请求类型
-		url:"delfile.json",//请求的url
+		url:"delfile.do",//请求的url
 		data:{id:id,flag:'apk'},//请求参数
 		dataType:"json",//ajax接口（请求url）返回的数据类型
 		success:function(data){//data：返回数据（json对象）
@@ -21,20 +21,16 @@ function delfile(id){
 
 $(function(){  
 	$("#back").on("click",function(){
-		window.location.href = "list";
+		window.location.href = "list.do";
 	});
 	
 	//上传APK文件---------------------
 	var downloadLink = $("#downloadLink").val();
 	var id = $("#id").val();
 	var apkFileName = $("#apkFileName").val();
-	if(downloadLink == null || downloadLink == "" ){
 		$("#uploadfile").show();
-	}else{
 		$("#apkFile").append("<p>"+apkFileName+
-							"&nbsp;&nbsp;<a href=\""+downloadLink+"?m="+Math.random()+"\" >下载</a> &nbsp;&nbsp;" +
-							"<a href=\"javascript:;\" onclick=\"delfile('"+id+"');\">删除</a></p>");
-	}
+							"&nbsp;&nbsp;<a href=\""+downloadLink+"?m="+Math.random()+"\" >下载</a></p>");
 
 });
       
