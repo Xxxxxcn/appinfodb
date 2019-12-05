@@ -81,27 +81,27 @@ public class AppinfoServiceimpl implements AppinfoService {
 			appVersion.setId(appInfo.getVersionId());
 			appVersion.setPublishStatus(2);	
 			appVersion.setModifyDate(new Date());
-			appVersionDao.InsertAppVersion(appVersion);
+			appVersionDao.UpdateAppversion(appVersion);
 			appInfo1.setId(appInfo.getId());
 			appInfo1.setModifyDate(new Date());
 			appInfo1.setStatus(4);
-			appinfoDao.InsertAppInfo(appInfo1);
+			appinfoDao.UpdateAppinfo(appInfo1);
 			break;
 		case 4:
 			appVersion.setId(appInfo.getVersionId());
 			appVersion.setPublishStatus(2);	
 			appVersion.setModifyDate(new Date());
-			appVersionDao.InsertAppVersion(appVersion);
+			appVersionDao.UpdateAppversion(appVersion);
 			appInfo1.setId(appInfo.getId());
 			appInfo1.setModifyDate(new Date());
 			appInfo1.setStatus(5);
-			appinfoDao.InsertAppInfo(appInfo1);
+			appinfoDao.UpdateAppinfo(appInfo1);
 			break;
 		case 5:
 			appInfo1.setId(appInfo.getId());
 			appInfo1.setModifyDate(new Date());
 			appInfo1.setStatus(4);
-			appinfoDao.InsertAppInfo(appInfo1);
+			appinfoDao.UpdateAppinfo(appInfo1);
 			break;
 		default:
 			return false;
